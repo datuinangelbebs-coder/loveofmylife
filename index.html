@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>💖 For You</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+}
+
+/* BLUR LAYER FEEL */
+.bg-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+}
+
+/* CARD (MAIN DESIGN LIKE TIKTOK STYLE) */
+.card {
+    position: relative;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 85%;
+    max-width: 420px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* INPUT */
+input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    text-align: center;
+    outline: none;
+}
+
+/* BUTTON */
+button {
+    margin-top: 12px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: #ff4d6d;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* LETTER SCREEN */
+#letter {
+    display: none;
+    max-width: 700px;
+    max-height: 75vh;
+    overflow-y: auto;
+    text-align: left;
+    white-space: pre-line;
+    line-height: 1.7;
+    animation: fade 1.5s ease;
+}
+
+@keyframes fade {
+    from {opacity: 0; transform: translateY(15px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* HEARTS */
+.heart {
+    position: fixed;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(100vh);}
+    100% {transform: translateY(-10vh); opacity: 0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1&mute=1&loop=1&playlist=5qap5aO4i9A"
+allow="autoplay">
+</iframe>
+
+<div class="bg-glow"></div>
+
+<!-- PIN CARD -->
+<div class="card" id="pinCard">
+    <h2>💖 A Secret Message</h2>
+    <p>Enter PIN to continue</p>
+    <input type="password" id="pin" placeholder="••••">
+    <br>
+    <button onclick="check()">Unlock</button>
+</div>
+
+<!-- LETTER -->
+<div class="card" id="letterCard" style="display:none;">
+    <div id="letter"></div>
+</div>
+
+<script>
+
+let message = `My babyyyy,
+
+I just wanted to write this because there are things I don't always say enough.
+
+These past months haven't been easy for us. We've had a lot of arguments, sometimes even over small things. There were moments when I felt tired, frustrated, and ready to give up.
+
+But through all of that, you stayed.
+
+You never gave up on us, even when I was struggling.
+
+Thank you for your patience, your love, and for staying.
+
+You are my safe place, my comfort, my home.
+
+I love you 💖`;
+
+function check(){
+    if(document.getElementById("pin").value === "1212"){
+        document.getElementById("pinCard").style.display = "none";
+        document.getElementById("letterCard").style.display = "block";
+        type();
+        hearts();
+    } else {
+        alert("Wrong PIN 💔");
+    }
+}
+
+function type(){
+    let i = 0;
+    let el = document.getElementById("letter");
+
+    let t = setInterval(() => {
+        el.innerHTML += message[i];
+        i++;
+        if(i >= message.length) clearInterval(t);
+    }, 25);
+}
+
+function hearts(){
+    setInterval(() => {
+        let h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "💖";
+        h.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    }, 250);
+}
+
+</script>
+
+</body>
+</html>
